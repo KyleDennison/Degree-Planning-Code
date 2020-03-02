@@ -1,0 +1,17 @@
+<% content_for :hero_head do %>
+  <h1>New Course</h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <p>Add a course to the requirement of a major.</p>
+<% end %>
+
+<% content_for :content do %>
+<%= render 'form', course: @course %>
+
+<% if params[:major] %>
+  <%= link_to 'Back to AOC', major_path(params[:major]) %>
+<% else %>
+  <%= link_to 'All AOCs', majors_path %>
+<% end %>
+<% end %>

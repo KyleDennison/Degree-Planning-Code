@@ -1,0 +1,57 @@
+<% content_for :hero_head do %>
+  <h1>All Courses</h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <p class="lead">
+    All courses for all academic programs. <%if current_user.faculty?  %> To add a course, visit an academic program and add a course to a requirement area.<br/>
+    You can view the full list of pre-requisite courses by viewing (clicking) the individual course.
+      <%end %>
+  </p>
+<% end %>
+
+<% content_for :content do %>
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Courses.." title="Type in a Course">
+  <p></p>
+<table class="table table-hover" id="myTable">
+  <thead class="thead-dark">
+    <tr>
+      <th class="col-md-1">Title</th>
+      <th class="col-md-1">Description</th>
+      <th class="col-md-1">Pre-requisites</th>
+      <th class="col-md-1">Relevant AOCs</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= link_to course.title, course_path(course) %></td>
+        <td><%= course.description %></td>
+        <td><%= course.immediate_prereq.title if course.immediate_prereq %></td>
+        <td><%= course.all_majors_as_string %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  <script>
+      function myFunction() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[0];
+              if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                      tr[i].style.display = "";
+                  } else {
+                      tr[i].style.display = "none";
+                  }
+              }
+          }
+      }
+  </script>
+<% end %>

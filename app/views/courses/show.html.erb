@@ -1,0 +1,54 @@
+<% content_for :hero_head do %>
+  <h1><%= @course.title %></h1>
+<% end %>
+
+<% if @course.description %>
+  <% content_for :hero_lead do %>
+    <%= @course.description %>
+  <% end %>
+<% end %>
+
+<% content_for :hero_button_group do %>
+  <% if current_user.faculty? %>
+    <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-outline-primary" %>
+  <% end %>
+<% end %>
+
+<% content_for :content do %>
+  <div class="card-deck">
+
+    <!-- Pre-requisites -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Pre-requisites</h5>
+        <h6 class="card-subtitle mb-2 text-muted">ALL pre-requisites</h6>
+        <p class="card-text">
+          <% if @course.has_children? %>
+          <ul>
+            <% @course.all_prereqs.each do |course| %>
+              <li><%= link_to course.title, course_path(course) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          Did not currently find any pre-requisite course specified.
+        <% end %>
+        </p>
+      </div>
+    </div>
+
+    <!-- AOCs -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Relevant Programs</h5>
+        <h6 class="card-subtitle mb-2 text-muted">All relevant AOCs for this course</h6>
+        <p class="card-text">
+        <ul>
+          <% @course.all_majors.each do |major| %>
+            <li><%= link_to major.title, major_path(major) %></li>
+          <% end %>
+        </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

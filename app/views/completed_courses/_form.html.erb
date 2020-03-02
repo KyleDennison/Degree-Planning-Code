@@ -1,0 +1,27 @@
+<%= form_with(model: completed_course, local: true) do |form| %>
+  <% if completed_course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(completed_course.errors.count, "error") %> prohibited this completed_course from being saved:</h2>
+
+      <ul>
+      <% completed_course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.collection_select :course_id, Course.order(:title), :id, :title, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.submit "Complete", class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

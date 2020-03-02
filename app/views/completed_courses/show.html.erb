@@ -1,0 +1,14 @@
+<% content_for :hero_head do %>
+<%= notice %>
+  <h1><%= @completed_course.course.title %></h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <p>This page is to confirm which completed course was added to your profile.</p>
+<% end %>
+
+<% content_for :content do %>
+<p>
+  You (<%= @completed_course.user.email %>) marked the course <strong>'<%= @completed_course.course.title %>'</strong> complete on <strong><%= @completed_course.created_at.month %>.<%= @completed_course.created_at.day %></strong>
+</p>
+<% end %>

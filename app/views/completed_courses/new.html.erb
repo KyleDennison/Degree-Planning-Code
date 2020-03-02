@@ -1,0 +1,9 @@
+<% content_for :hero_head do %>
+  <h1>Mark Course as Complete</h1>
+<% end %>
+<% content_for :content do %>
+  <%= render 'form', completed_course: @completed_course %>
+
+  <%= link_to 'Back', completed_courses_path %>
+
+<% end %>

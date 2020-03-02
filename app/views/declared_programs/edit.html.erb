@@ -1,0 +1,18 @@
+<% content_for :hero_head do %>
+  <h1>Change Your AOC</h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <p class="lead">
+    You may change your AOC on this page. Note that this does not change your AOC, officially, with the school records. This is for planning purposes only. Speak with your advisor if you have any questions.
+  </p>
+<% end %>
+
+<% content_for :hero_button_group do %>
+  <%= link_to 'Academic Progress', completed_courses_path, class: 'btn btn-outline-primary' %>
+  <%= link_to 'Your Profile', current_user, class: 'btn btn-outline-secondary' %>
+<% end %>
+
+<% content_for :content do %>
+  <%= render 'form', declared_program: @declared_program %>
+<% end %>

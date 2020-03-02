@@ -1,0 +1,31 @@
+<!-- Front centre content -->
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal"><%= icon "fas", "graduation-cap" %> NCF Academic Program Planner</h1>
+    <p class="lead font-weight-normal">A way for faculty to manage academic programs and students to track their academic progress.</p>
+    <a class="btn btn-outline-secondary" href="#"><%= icon "fas", "exclamation-triangle" %> Coming soon</a>
+  </div>
+  <div class="product-device box-shadow d-none d-md-block"></div>
+  <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+</div>
+
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3">
+
+  <!-- Students -->
+  <div class="bg-primary mr-md-3 pt-3 pb-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden rounded border border-light">
+    <div class="my-3 py-3">
+      <h2 class="display-5"><%= icon "fas", "users" %> Students</h2>
+      <p class="lead">Track your academic progress and see what you need in order to graduate on time.</p>
+    </div>
+    <%= link_to "Get Started", signup_path, class: "btn btn-outline-light" %>
+  </div>
+
+  <!-- Faculty -->
+  <div class="bg-light mr-md-3 pt-3 pb-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden rounded border border-primary">
+    <div class="my-3 p-3">
+      <h2 class="display-5"><%= icon "fas", "user-shield"%> Faculty</h2>
+      <p class="lead">Manage academic programs and provide students with a clear set of requirements.</p>
+    </div>
+    <%= link_to "Request Access", signup_path, class: "btn btn-outline-primary" %>
+  </div>
+</div>

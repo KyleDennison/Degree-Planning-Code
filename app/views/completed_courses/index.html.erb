@@ -1,0 +1,58 @@
+<% content_for :hero_head do %>
+  <h1>Your Academic Progress</h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <p class="lead">
+    This page displays your completed academic coursework as well as your overall academic progress.
+  </p>
+<% end %>
+
+<% content_for :hero_button_group do %>
+  <%= link_to 'Add Completed Course', new_completed_course_path, class: 'btn btn-outline-primary' %>
+  <% if current_user.declared_programs.first %>
+    <%= link_to "Your AOC", major_path(current_user.declared_programs.first.major_id), class: 'btn btn-outline-primary' %>
+    <%= link_to "Change AOC", edit_declared_program_path(current_user.declared_programs.first), class: 'btn btn-outline-danger' %>
+  <% else %>
+    <%= link_to "Declare AOC", new_declared_program_path, class: 'btn btn-outline-secondary' %>
+  <% end %>
+  <%= link_to "Your Profile", current_user, class: "btn btn-outline-secondary" %>
+<% end %>
+
+<% content_for :content do %>
+  <!-- List of completed courses -->
+  <div class="row">
+    <div class="col">
+      <% if @completed_courses.empty? %>
+        <div class="alert alert-warning" style="text-align: center" role="alert">
+          <strong>You have not yet marked any courses as complete.</strong>
+        </div>
+      <% else %>
+        <table class="table table-hover" id="myTable">
+          <thead class="thead-dark">
+          <tr>
+            <th class="col-md-1">Student Name</th>
+            <th class="col-md-1">Course Title</th>
+            <th class="col-md-1">Completed</th>
+            <% if !current_user.faculty? %>
+              <th class="col-md-1">Remove</th>
+            <% end %>
+          </tr>
+          </thead>
+          <% @completed_courses.each do |course_record| %>
+            <tr>
+              <% if current_user.faculty? %>
+                <td> <%= course_record.user.firstname + " " + course_record.user.lastname %> </td>
+              <% end %>
+              <td><%= link_to course_record.course.title, completed_course_path(course_record) %></td>
+              <td><span class="badge badge-pill badge-success">Complete</span></td>
+              <% if !current_user.faculty? %>
+                <td><%= link_to 'Remove', completed_course_path(course_record), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+<% end %>

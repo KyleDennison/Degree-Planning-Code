@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DegreePlanner</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+
+<%= render "shared/navbar" %>
+
+<main role="main" class="container pb-3">
+
+  <!-- Not production ready -->
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+      <p class="alert alert-danger"><%= icon "fas", "bomb" %> This software is not intended or ready for actual use. You may encounter errors and your data may be lost. By using this software, you agree that no warranty or rights are provided to the user (you).</p>
+    </div>
+  </div>
+
+  <% if notice %>
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        <p class="alert alert-success"><%= notice %></p>
+      </div>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        <p class="alert alert-danger"><%= icon 'fas', 'exclamation-triangle' %> <%= alert %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if content_for? :hero_head %>
+
+    <!-- hero -->
+    <div class="py-5">
+
+      <!-- hero header -->
+      <div class="row">
+        <div class="col">
+          <%= yield :hero_head %>
+        </div>
+      </div>
+
+      <!-- hero lead paragraph -->
+      <div class="row">
+        <div class="col">
+          <p class="lead">
+            <%= yield :hero_lead %>
+          </p>
+        </div>
+      </div>
+
+      <!-- hero button group -->
+      <% if content_for? :hero_button_group %>
+        <div class="row">
+          <div class="col">
+            <div class="btn-group" role="group">
+              <%= yield :hero_button_group %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <hr>
+    </div>
+    <!-- content -->
+    <div class="row">
+      <div class="col">
+        <%= yield :content %>
+      </div>
+    </div>
+
+  <% else %>
+
+    <%= yield %>
+
+  <% end %>
+</main>
+<%= render 'shared/footer' %>
+</body>
+</html>

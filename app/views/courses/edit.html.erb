@@ -1,0 +1,14 @@
+<% content_for :hero_head do %>
+  <h1>Edit Course</h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <p>This is where you can edit the details of a course.</p>
+<% end %>
+
+<% content_for :content do %>
+<%= render 'form', course: @course %>
+
+<%= link_to 'Show', @course %> |
+<%= link_to 'Back', courses_path %>
+<% end %>

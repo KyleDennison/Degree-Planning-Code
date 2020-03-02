@@ -1,0 +1,39 @@
+<%= form_with(model: major, local: true) do |form| %>
+  <% if major.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(major.errors.count, "error") %> prohibited this academic program from being saved:</h2>
+
+      <ul>
+      <% major.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :title %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.submit "Confirm", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to 'Back', majors_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>

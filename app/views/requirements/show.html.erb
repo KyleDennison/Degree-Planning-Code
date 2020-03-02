@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @requirement.major.title %></h1>
+<h2><%= @requirement.name %></h2>
+<p><%= @requirement.courses.pluck(:title).join(", ") %></p>
+
+<%= link_to 'Edit', edit_requirement_path(@requirement) %>

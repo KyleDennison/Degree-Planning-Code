@@ -1,0 +1,110 @@
+<% content_for :hero_head do %>
+  <h1><%= icon 'fas', 'user' %> <%= current_user.firstname %> <%= current_user.lastname %>
+    (<%= current_user.email %>)</h1>
+<% end %>
+
+<% content_for :hero_lead do %>
+  <% if current_user.faculty? %>
+    <span class="badge badge-pill badge-primary">Faculty Account</span>
+  <% else %>
+    <span class="badge badge-pill badge-primary">Student Account</span>
+  <% end %>
+  View your academic information, such as completed coursework, here.
+<% end %>
+
+<% content_for :content do %>
+  <!-- Bio -->
+  <!-- If you're a student then see completed courses card, if not then just major-->
+  <!-- Doing the if statement here so that I can center the major -->
+  <% if current_user.faculty? == false %>
+    <!-- Academic -->
+    <div class="row justify-content-md-center">
+      <!-- AOC -->
+      <div class="col col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Declared AOC</h5>
+            <p class="card-text">
+              <% if @declared_program %>
+                <%= @declared_program.title %>
+              <% else %>
+                No declared program. Please declare an AOC.
+              <% end %>
+            </p>
+            <% if @requirements_left %>
+              <p>Degree Requirements Left:</p>
+              <p class="card-text">
+                <ul>
+                  <% for item in @requirements_left %>
+                    <li><%= item %></li>
+                  <% end %>
+                </ul>
+              </p>
+
+
+
+            <% end %>
+            <% if @declared_program %>
+              <%= link_to "View AOC", major_path(@declared_program), class: 'card-link' %>
+            <% else %>
+              <%= link_to "Declare an AOC", new_declared_program_path, class: 'card-link' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!-- # completed courses -->
+      <div class="col col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Completed Courses</h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= current_user.completed_courses.count %>
+              completed <%= 'course'.pluralize %></h6>
+            <p class="card-text">
+            <ul>
+              <% current_user.completed_courses.each do |completed_course| %>
+                <li><%= completed_course.course.title %></li>
+              <% end %>
+            </ul>
+            </p>
+            <%= link_to "Update Progress", completed_courses_path(user: current_user), class: "card-link" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="row justify-content-md-center">
+      <!-- AOC -->
+      <div class="col col-lg-6">
+        <div class="card" style="width: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title">Teaching</h5>
+            <p class="card-text">
+              <% if @declared_program %>
+                <%= @declared_program.title %>
+              <% else %>
+                You haven't declared what AOC you're teaching.
+              <% end %></p>
+            <% if @declared_program %>
+              <%= link_to "My AOC", major_path(@declared_program), class: 'card-link' %>
+            <% else %>
+              <%= link_to "Declare AOC", new_declared_program_path, class: 'card-link' %>
+            <% end %>
+            <%= link_to "All declared AOCs", declared_programs_url, class: 'card-link' %>
+          </div>
+        </div>
+      </div>
+      <!-- Completed Courses -->
+      <div class="col col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Completed Courses</h5>
+            <p class="card-text">
+              See all courses students have completed
+            </p>
+            <%= link_to "See Progress", completed_courses_path(user: current_user), class: "card-link" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

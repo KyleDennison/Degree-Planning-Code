@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+comp_sci_maths:
+  name: Mathematics
+  major: computer_science
+  num_required: 3

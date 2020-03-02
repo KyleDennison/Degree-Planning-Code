@@ -1,0 +1,85 @@
+<% content_for :hero_head do %>
+  <h1><%= @major.title %></h1>
+<% end %>
+
+<% if @major.description %>
+  <% content_for :hero_lead do %>
+    <p class="lead"><%= @major.description %></p>
+  <% end %>
+<% end %>
+
+<% content_for :hero_button_group do %>
+
+  <% if current_user.faculty? %>
+    <%= link_to "Edit AOC", edit_major_path(@major), class: "btn btn-outline-primary btn-large" %>
+    <%= link_to "Add Requirement Area", new_requirement_path(major: @major.id), class: "btn btn-outline-primary btn-large" %>
+  <% else %>
+    <%= link_to "Your Academic Progress", completed_courses_url, class: "btn btn-outline-primary" %>
+    <%= link_to "Add Completed Course", new_completed_course_path, class: "btn btn-outline-primary" %>
+    <%= link_to "Change AOC", edit_declared_program_path(current_user.declared_programs.first), class: "btn btn-outline-danger" %>
+    <%= link_to "Back", majors_path, class: "btn btn-outline-secondary btn-large" %>
+  <% end %>
+<% end %>
+
+<% content_for :content do %>
+  <h2>Requirement Areas</h2>
+
+  <% @requirements.each do |requirement| %>
+
+    <div class="row justify-content-between">
+      <div class="col">
+        <h3><%= requirement.name %></h3>
+        <% if requirement.description %>
+          <p><%= requirement.description %></p>
+        <% end %>
+        <p><%= num_required_string(requirement) %></p>
+      </div>
+      <% if current_user.faculty? %>
+        <div>
+          <div class="btn-group" role="group">
+            <%= link_to "Add Course", new_course_path(requirement: requirement.id, major: @major.id), class: "btn btn-primary btn-large" %>
+            <%= link_to "Edit Req", edit_requirement_path(requirement, major: @major.id), class: "btn btn-outline-secondary btn-large" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <table class="table table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Pre-requisite</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% requirement.courses.each do |course| %>
+            <tr>
+              <td class="col-md-2">
+                <% if !current_user.faculty? %>
+                  <% if current_user.completed_courses.exists?(course_id: course) %>
+                    <span class="badge badge-pill badge-success">Complete</span>
+                  <% else %>
+                    <a href="#" class="badge badge-danger">Incomplete</a>
+                  <% end %>
+                <% end %>
+                <%= link_to course.title, course_path(course) %>
+              </td>
+              <td class="col-md-2">
+                <% if course.has_children? %>
+                  <%= course.children.first.title %>
+                <% else %>
+                  None
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+

@@ -1,0 +1,33 @@
+<%= form_with(model: declared_program, local: true) do |form| %>
+  <% if declared_program.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(declared_program.errors.count, "error") %> prohibited this declared_program from being saved:</h2>
+
+      <ul>
+      <% declared_program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id %>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :major_id, 'List of Areas of Concentration (AOCs)' %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.collection_select :major_id, Major.order(:title), :id, :title, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
