@@ -1,5 +1,7 @@
 # Degree Planner Website
 
+A video demo of this project can be found at https://youtu.be/XiGWCtI6ZEk
+
 ![Demo](Pictures/demoPicture.png)
 
 This repository is a copy of the private original repository, that was moved here for organizational reasons. This is a group project that was worked on with other students for a Software Engineering course from April to May 2019. The goal of this project was to work as a team to practice agile principles and create a live website that colleges can use for their students/faculty to manage progress through majors. This was accomplished using Ruby on Rails to create the site and Heroku to host it. As the front end developer for this project it was my responsibility to make sure the website had a pleasant looks and feel which was refined using user testing. 
